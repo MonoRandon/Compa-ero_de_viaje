@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalles del Viaje</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="trip-details-container" style="background:#fffbe6; border-radius:16px; box-shadow:0 4px 16px #b2c2a2; padding:38px 36px; max-width:600px; margin:40px auto;">
+        <div class="trip-title" style="font-family: 'Bubblegum Sans', cursive; color:#388e3c; font-size:2.2em; text-align:center; margin-bottom:18px;">{{ viaje.destino }}</div>
+        <div class="trip-meta" style="font-family: 'Bubblegum Sans', cursive; color:#7bb661; font-size:1.1em; margin-bottom:18px; text-align:center;">
+            <span style="display:inline-block; margin-right:18px;"><strong>Inicio:</strong> {{ viaje.fecha_de_viaje_desde }}{% if viaje.hora_inicio %} - {{ viaje.hora_inicio[:5] }}{% endif %}</span>
+            <span><strong>Fin:</strong> {{ viaje.fecha_de_viaje_a }}{% if viaje.hora_fin %} - {{ viaje.hora_fin[:5] }}{% endif %}</span>
+        </div>
+        <div class="trip-section" style="margin-bottom:22px;">
+            <strong style="font-family: 'Bubblegum Sans', cursive; color:#388e3c;">Descripción:</strong><br>
+            <span style="font-family: 'Bubblegum Sans', cursive; font-size:1.1em;">{{ viaje.descripcion }}</span>
+        </div>
+        <div class="trip-section" style="margin-bottom:22px;">
+            <strong style="font-family: 'Bubblegum Sans', cursive; color:#388e3c;">Usuarios unidos a este viaje:</strong>
+            <ul class="user-list" style="font-family: 'Bubblegum Sans', cursive; font-size:1.08em; margin-top:8px;">
+                {% if usuarios_unidos %}
+                    {% for usuario in usuarios_unidos %}
+                        <li>{{ usuario.nombre }} {{ usuario.apellido }}</li>
+                    {% endfor %}
+                {% else %}
+                    <li>No hay usuarios unidos a este viaje.</li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="back-btns" style="text-align:center;">
+            <a href="/dashboard" style="font-family: 'Bubblegum Sans', cursive; color:#e67e22; text-decoration:underline; margin-right:18px;">Volver al panel</a>
+            <a href="/logout" style="font-family: 'Bubblegum Sans', cursive; color:#e67e22; text-decoration:underline;">Cerrar sesión</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Compañero de Viaje - Bienvenida</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .welcome-bg {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(120deg, #e6ffe6 0%, #fffbe6 100%);
+        }
+        .welcome-card {
+            background: #fffbe6;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px #b2c2a2;
+            padding: 38px 44px 32px 44px;
+            max-width: 420px;
+            width: 100%;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+        .welcome-logo {
+            width: 90px;
+            margin-bottom: 18px;
+        }
+        .welcome-title {
+            font-size: 2.2em;
+            color: #388e3c;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            margin-bottom: 8px;
+        }
+        .welcome-sub {
+            font-size: 1.1em;
+            color: #7bb661;
+            margin-bottom: 18px;
+        }
+        .form-container {
+            display: flex;
+            gap: 32px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .form-box {
+            background: #f9fff3;
+            border: 2px solid #7bb661;
+            border-radius: 10px;
+            padding: 28px 24px 18px 24px;
+            min-width: 260px;
+            box-shadow: 0 2px 8px #b2c2a2;
+        }
+        .form-box label {
+            font-weight: bold;
+            color: #388e3c;
+        }
+        .form-box input {
+            margin-bottom: 10px;
+        }
+        .form-box button {
+            background: #388e3c;
+            color: #fffbe6;
+            font-weight: bold;
+            border-radius: 6px;
+            margin-top: 10px;
+        }
+        .validation {
+            margin-top: 18px;
+        }
+    </style>
+</head>
+<body class="welcome-bg">
+    <div class="welcome-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/201/201623.png" alt="Logo aventura" class="welcome-logo">
+        <div class="welcome-title">Compañero de Viaje</div>
+        <div class="welcome-sub">¡Organiza y comparte tus aventuras con otros viajeros!</div>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="validation">
+            {% for message in messages %}
+              <div>{{ message }}</div>
+            {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+    </div>
+    <div class="form-container">
+        <div class="form-box">
+            <form action="/register" method="POST">
+                <label for="nombre">Nombre</label>
+                <input type="text" name="nombre" id="nombre" placeholder="Nombre" required>
+                <label for="apellido">Apellido</label>
+                <input type="text" name="apellido" id="apellido" placeholder="Apellido" required>
+                <label for="email_reg">Email</label>
+                <input type="email" name="email" id="email_reg" placeholder="Email" required>
+                <label for="password_reg">Contraseña</label>
+                <input type="password" name="password" id="password_reg" placeholder="Contraseña" required>
+                <label for="confirmar">Confirmar Contraseña</label>
+                <input type="password" name="confirmar" id="confirmar" placeholder="Confirmar Contraseña" required>
+                <button type="submit">Registrarse</button>
+            </form>
+        </div>
+        <div class="form-box">
+            <form action="/login" method="POST">
+                <label for="email_login">Email</label>
+                <input type="email" name="email" id="email_login" placeholder="Email" required>
+                <label for="password_login">Contraseña</label>
+                <input type="password" name="password" id="password_login" placeholder="Contraseña" required>
+                <button type="submit">Iniciar Sesión</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

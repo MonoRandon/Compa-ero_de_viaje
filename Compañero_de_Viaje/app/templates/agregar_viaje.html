@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if viaje %}Editar Viaje{% else %}Agregar Viaje{% endif %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="dashboard-container" style="max-width: 500px;">
+        <h2 style="font-family: 'Bubblegum Sans', cursive; color: #388e3c; text-align:center; margin-bottom: 18px;">{% if viaje %}Editar Viaje{% else %}Agregar Viaje{% endif %}</h2>
+        <form class="form-anim" action="{% if viaje %}/actualizarviaje/{{ viaje.id }}{% else %}/crearviaje{% endif %}" method="POST" style="background:#fffbe6; border-radius:12px; box-shadow:0 2px 8px #b2c2a2; padding:28px 24px;">
+            <label class="form-label" for="destino" style="font-family: 'Bubblegum Sans', cursive;">Destino</label>
+            <input class="form-input" type="text" name="destino" id="destino" placeholder="Destino" value="{{ viaje.destino if viaje else '' }}" required>
+
+            <label class="form-label" for="descripcion" style="font-family: 'Bubblegum Sans', cursive;">Descripción</label>
+            <input class="form-input" type="text" name="descripcion" id="descripcion" placeholder="Descripción" value="{{ viaje.descripcion if viaje else '' }}" required>
+
+            <label class="form-label" for="fecha_de_viaje_desde" style="font-family: 'Bubblegum Sans', cursive;">Fecha de inicio</label>
+            <input class="form-date" type="date" name="fecha_de_viaje_desde" id="fecha_de_viaje_desde" value="{{ viaje.fecha_de_viaje_desde if viaje else '' }}" required>
+
+            <label class="form-label" for="hora_inicio" style="font-family: 'Bubblegum Sans', cursive;">Hora de inicio</label>
+            <input class="form-time" type="time" name="hora_inicio" id="hora_inicio" value="{{ viaje.hora_inicio if viaje and viaje.hora_inicio else '' }}">
+
+            <label class="form-label" for="fecha_de_viaje_a" style="font-family: 'Bubblegum Sans', cursive;">Fecha de fin</label>
+            <input class="form-date" type="date" name="fecha_de_viaje_a" id="fecha_de_viaje_a" value="{{ viaje.fecha_de_viaje_a if viaje else '' }}" required>
+
+            <label class="form-label" for="hora_fin" style="font-family: 'Bubblegum Sans', cursive;">Hora de fin</label>
+            <input class="form-time" type="time" name="hora_fin" id="hora_fin" value="{{ viaje.hora_fin if viaje and viaje.hora_fin else '' }}">
+
+            <button class="form-btn" type="submit" style="font-family: 'Bubblegum Sans', cursive; font-size:1.1em;">{% if viaje %}Actualizar{% else %}Agregar{% endif %}</button>
+        </form>
+        <div style="margin-top:18px; text-align:center;">
+            <a href="/dashboard" style="font-family: 'Bubblegum Sans', cursive; color:#e67e22; text-decoration:underline;">Volver al panel</a>
+        </div>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="validation" style="font-family: 'Bubblegum Sans', cursive;">
+            {% for message in messages %}
+              <div>{{ message }}</div>
+            {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+    </div>
+</body>
+</html>
